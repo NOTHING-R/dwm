@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+. ~/.cache/wal/colors.sh 2>/dev/null || { FG="#cdd6f4"; BG="#1e1e2e"; }
+FG="${color7}"; BG="${color0}"
+echo "^c${FG}^^b${BG}^  $(date '+%b %d (%a) %I:%M:%S%p') ^d^"

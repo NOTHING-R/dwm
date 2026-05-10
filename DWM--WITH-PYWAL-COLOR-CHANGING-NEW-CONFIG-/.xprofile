@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# ── Input ─────────────────────────────────────────────────────
+xinput set-prop "SYNA3071:00 06CB:82F1 Touchpad" "libinput Tapping Enabled" 1
+xinput set-prop "SYNA3071:00 06CB:82F1 Touchpad" "libinput Natural Scrolling Enabled" 1
+
+# ── Restore wal colorscheme FIRST (before apps launch) ────────
+(cat ~/.cache/wal/sequences) # restore terminal colors (blocking, fast)
+wal -R                       # restore full colorscheme + wallpaper
+
+# ── System tray & compositor ──────────────────────────────────
+picom &
+dwmblocks &
+dunst &
+nm-applet &
+blueman-applet &
+flameshot &
+
+# ── Emacs daemon ──────────────────────────────────────────────
+pgrep -x emacs >/dev/null || emacs --daemon &
+
+# ── IBus input method ─────────────────────────────────────────
+ibus-daemon -drx
+
+##!/bin/bash
+#xinput set-prop "SYNA3071:00 06CB:82F1 Touchpad" "libinput Tapping Enabled" 1
+#xinput set-prop "SYNA3071:00 06CB:82F1 Touchpad" "libinput Natural Scrolling Enabled" 1
+#
+#picom &
+#~/.fehbg &
+#dwmblocks &
+#dunst &
+#nm-applet &
+#blueman-applet &
+#flameshot &
+#
+## Restore last wal colorscheme on login (fast, no wallpaper re-set)
+#(cat ~/.cache/wal/sequences &)                       # restores terminal colors
+#wal -R &                                             # restores full colorscheme
+#feh --no-fehbg --bg-fill "$(cat ~/.cache/wal/wal)" & # restores wallpaper
+#
+## emacsclient -c -a '' &
+#pgrep -x emacs >/dev/null || emacs --daemon &
+#ibus-daemon -drx
+#
+## export GTK_IM_MODULE=ibus
+## export XMODIFIERS=@im=ibus
+## export QT_IM_MODULE=ibus

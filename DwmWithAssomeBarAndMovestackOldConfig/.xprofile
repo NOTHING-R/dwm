@@ -1,0 +1,14 @@
+#!/bin/bash
+xinput set-prop "SYNA3071:00 06CB:82F1 Touchpad" "libinput Tapping Enabled" 1
+xinput set-prop "SYNA3071:00 06CB:82F1 Touchpad" "libinput Natural Scrolling Enabled" 1
+
+picom &
+~/.fehbg &
+dwmblocks &
+# emacsclient -c -a '' &
+pgrep -x emacs >/dev/null || emacs --daemon &
+ibus-daemon -drx
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+# export GTK_IM_MODULE=ibus
+# export XMODIFIERS=@im=ibus
+# export QT_IM_MODULE=ibus

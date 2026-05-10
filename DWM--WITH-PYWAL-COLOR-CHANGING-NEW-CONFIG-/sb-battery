@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+. ~/.cache/wal/colors.sh 2>/dev/null || { FG="#cdd6f4"; BG="#1e1e2e"; }
+FG="${color7}"; BG="${color0}"
+
+BAT_PATH="/sys/class/power_supply/BAT0"
+if [[ ! -d "$BAT_PATH" ]]; then echo ""; exit 0; fi
+
+status=$(cat "$BAT_PATH/status")
+capacity=$(cat "$BAT_PATH/capacity")
+
+if   [[ "$status" == "Charging" ]];    then icon=""
+elif [[ $capacity -le 20 ]];           then icon=""
+elif [[ $capacity -le 50 ]];           then icon=""
+else                                        icon=""
+fi
+
+echo "^c${FG}^^b${BG}^ ${icon} ${capacity}% ^d^"

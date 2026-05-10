@@ -1,0 +1,31 @@
+--- dwm.c
++++ dwm.c
+@@ -452,10 +464,25 @@ buttonpress(XEvent *e)
+ 			arg.ui = 1 << i;
+ 		} else if (ev->x < x + TEXTW(selmon->ltsymbol))
+ 			click = ClkLtSymbol;
+-		else if (ev->x > selmon->ww - (int)TEXTW(stext))
++		/* 2px right padding */
++		else if (ev->x > selmon->ww - TEXTW(stext) + lrpad - 2)
+ 			click = ClkStatusText;
+-		else
+-			click = ClkWinTitle;
++		else {
++			x += TEXTW(selmon->ltsymbol);
++			c = m->clients;
++
++			if (c) {
++				do {
++					if (!ISVISIBLE(c))
++						continue;
++					else
++						x +=(1.0 / (double)m->bt) * m->btw;
++				} while (ev->x > x && (c = c->next));
++
++				click = ClkWinTitle;
++				arg.v = c;
++			}
++		}
+ 	} else if ((c = wintoclient(ev->window))) {
+ 		focus(c);
+ 		restack(selmon);

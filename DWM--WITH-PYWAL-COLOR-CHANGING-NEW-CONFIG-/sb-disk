@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+. ~/.cache/wal/colors.sh 2>/dev/null || { FG="#cdd6f4"; BG="#1e1e2e"; }
+FG="${color7}"; BG="${color0}"
+disk=$(df -h / | awk 'NR==2 {print $3"/"$2}')
+echo "^c${FG}^^b${BG}^  ${disk} ^d^"
